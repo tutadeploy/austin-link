@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Page Not Available - USPS Style</title>
+    <style>
+      :root {
+        --usps-blue: #336;
+        --usps-red: #da291c;
+        --usps-light-blue: #1b75bb;
+        --usps-gray: #666666;
+        --usps-light-gray: #f5f5f5;
+        --usps-border: #e5e5e5;
+      }
+
+      body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+        color: #333333;
+        line-height: 1.6;
+      }
+
+      .header {
+        background-color: var(--usps-blue);
+        padding: 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        color: white;
+        margin: 0;
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        padding: 0 20px;
+        text-align: center;
+      }
+
+      .error-icon {
+        font-size: 64px;
+        color: var(--usps-red);
+        margin-bottom: 20px;
+      }
+
+      .error-title {
+        color: var(--usps-blue);
+        font-size: 28px;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+
+      .error-message {
+        color: var(--usps-gray);
+        font-size: 18px;
+        margin-bottom: 30px;
+        line-height: 1.6;
+      }
+
+      .error-details {
+        background-color: var(--usps-light-gray);
+        padding: 20px;
+        border-radius: 4px;
+        margin-bottom: 30px;
+        text-align: left;
+      }
+
+      .error-details h2 {
+        color: var(--usps-blue);
+        font-size: 20px;
+        margin-top: 0;
+        margin-bottom: 15px;
+      }
+
+      .error-details ul {
+        margin: 0;
+        padding-left: 20px;
+        color: var(--usps-gray);
+      }
+
+      .error-details li {
+        margin-bottom: 10px;
+      }
+
+      .button {
+        display: inline-block;
+        background-color: var(--usps-blue);
+        color: white;
+        padding: 12px 24px;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: 500;
+        transition: background-color 0.3s;
+      }
+
+      .button:hover {
+        background-color: var(--usps-light-blue);
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 15px;
+        }
+
+        .error-title {
+          font-size: 24px;
+        }
+
+        .error-message {
+          font-size: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>USPS Style Form Service</h1>
+    </div>
+
+    <div class="container">
+      <div class="error-icon">⚠️</div>
+      <h2 class="error-title">Page Not Available</h2>
+      <p class="error-message">
+        We're sorry, but the page you're trying to access is not available.
+      </p>
+
+      <div class="error-details">
+        <h2>Why am I seeing this?</h2>
+        <ul>
+          <li>
+            You may have accessed the root URL directly without providing a hash
+            code
+          </li>
+          <li>
+            The required format is: http://localhost:${process.env.PORT ||
+            9000}/[16-digit-hash]
+          </li>
+        </ul>
+      </div>
+
+      <p class="error-message">
+        Please ensure you have the correct URL with a valid hash code. If you
+        believe this is an error, please contact support.
+      </p>
+    </div>
+  </body>
+</html>
