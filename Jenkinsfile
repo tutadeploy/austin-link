@@ -10,7 +10,9 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git branch: 'main',
+                    url: 'https://github.com/tutadeploy/austin-link.git',
+                    credentialsId: 'd440fbcb-17a4-4325-8bd9-396a65c189b2'
             }
         }
         
@@ -41,12 +43,6 @@ pipeline {
                     /usr/local/bin/pm2 restart ${DOCKER_IMAGE} || /usr/local/bin/pm2 start docker --name ${DOCKER_IMAGE} -- run ${DOCKER_IMAGE}:${DOCKER_TAG}
                 """
             }
-        }
-    }
-    
-    post {
-        always {
-            cleanWs()
         }
     }
 } 
