@@ -6,24 +6,25 @@ set -x
 # 设置变量
 DOCKER_IMAGE="austin-link"
 DOCKER_TAG="${BUILD_NUMBER}"
+DOCKER_CMD="/usr/bin/docker" # 使用宿主机的Docker命令
 
 echo "Starting deployment process..."
 
 # 构建Docker镜像
 echo "Building Docker image..."
-docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . || {
+${DOCKER_CMD} build -t ${DOCKER_IMAGE}:${DOCKER_TAG} . || {
     echo "Docker build failed"
     exit 1
 }
 
 # 停止并删除旧容器（如果存在）
 echo "Stopping and removing old container..."
-docker stop ${DOCKER_IMAGE} || true
-docker rm ${DOCKER_IMAGE} || true
+${DOCKER_CMD} stop ${DOCKER_IMAGE} || true
+${DOCKER_CMD} rm ${DOCKER_IMAGE} || true
 
 # 运行新容器
 echo "Starting new container..."
-docker run -d \
+${DOCKER_CMD} run -d \
     --name ${DOCKER_IMAGE} \
     -p 8090:8090 \
     --restart unless-stopped \
