@@ -4,6 +4,7 @@ pipeline {
     environment {
         DOCKER_IMAGE = 'austin-link'
         DOCKER_TAG = "${BUILD_NUMBER}"
+        DOCKER_HOST = 'unix:///var/run/docker.sock'
     }
     
     stages {
@@ -15,7 +16,10 @@ pipeline {
         
         stage('Build Docker Image') {
             steps {
-                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
+                sh """
+                    export DOCKER_HOST=unix:///var/run/docker.sock
+                    docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+                """
             }
         }
         
@@ -33,8 +37,8 @@ pipeline {
                         --restart unless-stopped \
                         ${DOCKER_IMAGE}:${DOCKER_TAG}
                     
-                    # 使用PM2重启应用
-                    pm2 restart ${DOCKER_IMAGE} || pm2 start docker --name ${DOCKER_IMAGE} -- run ${DOCKER_IMAGE}:${DOCKER_TAG}
+                    # 使用宿主机的PM2
+                    /usr/local/bin/pm2 restart ${DOCKER_IMAGE} || /usr/local/bin/pm2 start docker --name ${DOCKER_IMAGE} -- run ${DOCKER_IMAGE}:${DOCKER_TAG}
                 """
             }
         }
